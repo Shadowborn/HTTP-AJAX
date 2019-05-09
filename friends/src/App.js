@@ -5,6 +5,8 @@ import Form from "./Components/Form"
 
 import axios from 'axios';
 
+import './App.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,19 +32,30 @@ class App extends Component {
       });
       
   }
+
+  postNewFriend = newFriend => {
+    axios.post('http://localhost:5000/friends', newFriend)
+      .then(res => { 
+        this.setState({ friends: res.data })
+        console.log(res);
+      })
+      .then(err => { 
+        console.log(err);
+      });
+  };
  
   render() {
     return (
       <div className='App'>
         { this.state.friends.map(friend => 
-        <div>
+        <div key={friend.id}>
           <h1>{friend.name}</h1>
           <p>{friend.age}</p>
           <p>{friend.email}</p>
           <button>X</button>
         </div>
         )}
-        <Form friend={this.state.friends}/>
+        <Form friend={this.state.friends} postNewFriend={this.postNewFriend}/>
       </div>
     );
   }

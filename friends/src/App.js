@@ -1,11 +1,12 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 
-import Form from "./Components/Form"
+import Form from './Components/Form'
 
 import axios from 'axios';
 
-import './App.css';
+// import './App.css';
+import FriendList from './Components/FriendList';
 
 class App extends Component {
   constructor(props) {
@@ -39,23 +40,37 @@ class App extends Component {
         this.setState({ friends: res.data })
         console.log(res);
       })
-      .then(err => { 
+      .catch(err => { 
         console.log(err);
       });
   };
+
+  deleteItem = (e, id) => {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        this.setState({ friends: res.data });
+        this.props.history.push('/')
+      })
+      .catch(err => console.log(err));
+  };
  
+
+
   render() {
     return (
       <div className='App'>
-        { this.state.friends.map(friend => 
+        {/* { this.state.friends.map(friend => 
         <div key={friend.id}>
           <h1>{friend.name}</h1>
           <p>{friend.age}</p>
           <p>{friend.email}</p>
-          <button>X</button>
+          <button onClick={this.deleteItem}>X</button>
         </div>
-        )}
-        <Form friend={this.state.friends} postNewFriend={this.postNewFriend}/>
+        )} */}
+        <FriendList friends={this.state.friends} deleteItem={this.deleteItem}/>
+        <Form friend={this.state.friends} postNewFriend={this.postNewFriend} deleteItem={this.deleteItem}/>
       </div>
     );
   }

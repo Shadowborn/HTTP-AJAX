@@ -1,22 +1,28 @@
-.App {
+.friends {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+  padding: 10px;
 }
 
-.App div {
-  width:25%;
+.friends div {
+  width:50%;
+  border: 1px solid black;
+  box-sizing: border-box; 
+  padding: 10px
 }
 
-.App .formContainer {
+.friends .formContainer {
   width: 100%;
+  
 }
 .App .formContainer .form{
   width: 100%;
+ 
 }
 
-.App-header {
+.friends-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -27,7 +33,7 @@
   color: white;
 }
 
-.App-link {
+.friends-link {
   color: #61dafb;
 }
 
